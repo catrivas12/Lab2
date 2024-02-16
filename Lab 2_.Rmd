@@ -1,0 +1,70 @@
+---
+title: "LAB2
+output: html_document
+date: "2024-02-14"
+---
+#pp1 Question:
+# If the dice were fair then the probability that it would be judged unfair is 1/6. If it were unfair then the probability that it would be judged as fair is 5/6. 
+
+#pp2
+# rule: it is unfair if it roles 6 more than three times
+#If the dice are rolled 20 times the probability of getting a 6 is 4/3 . I think that it wouldn't be very unsual to get 1 or 2 more or less than that. But I do think that it would be unsual if it has 3 more or less than that because that it when the "pattern" breakks.
+#Based on my rule, if the dice is fair the probabilty that it would be judged as unfair is 17/6.
+
+#pp3:
+# rule: it is unfair if it roles 6 more than three times (out of 20). The number 6 was rolled 16 times when the dice rolled 100 times. I do think that it is safe to assume that every conclusion has some sort of level attached. Since I am rolling the dice 100 time the boundary I would set is that if a 6 is rolled 25% or more then it is unfair. If the dice is altered in any way I think that there is a big chance of it being deemed fair when it is not. 
+
+#This piece of code will role 100 times, numbers 1-6, and with replacement
+how_many_rolls <- 100
+sim_rolls <- sample(1:6, how_many_rolls, replace = TRUE)
+#List of the numbers that rolled 100 times
+list(sim_rolls)
+
+#EP1
+#in my experiement protocol I will roll the dice 200 times. If I see a particular outcome, I would be confident in the conclusions given that in the simulation the dice are not altered like the ones that we have. But if I were to roll the altered dice 200 times then I would not be confident in the conclusions because of the alterations I made on the edges of the dice. My rule is that if the number 6 comes up 50 or  more times then it is unfair. 
+
+how_many_rolls <- 200
+sim_rolls <- sample(1:6, how_many_rolls, replace = TRUE)
+#List of the numbers that rolled 100 times
+list(sim_rolls)
+
+#This creates a loop to do 50 simulations, it picks from a number (1-6) 20 different times within a loop 
+#This first chunk of the code runs it once 
+lots_of_sim_rolls <- sample(1:6, how_many_rolls, replace =TRUE)
+#This next chunks of the code does the rest of the 49 simulations
+for (indx in 1:49) {
+sim_rolls <- sample(1:6, how_many_rolls, replace = TRUE)
+lots_of_sim_rolls <- data.frame(lots_of_sim_rolls, sim_rolls)
+}
+#to see a list of the number
+list(lots_of_sim_rolls)
+
+#code to vectorize (one column, many rows)
+#number of simulations
+how_many_sims <- 50
+#vectorizing it 
+sim_rolls_vec <- sample(1:6,(how_many_rolls*how_many_sims), replace = TRUE) # vectorized version
+
+#If you want to see the number of times x number comes up 
+if_come_up_6 <- as.numeric(lots_of_sim_rolls == 6)
+mean(if_come_up_6)
+
+#If you want to see the number of times x number comes up (for the vectorized version)
+if_come_up_6_vec <- as.numeric(sim_rolls_vec == 6)
+mean(if_come_up_6_vec)
+
+#MY EXPERIMENT 
+how_many_rolls <- 200
+sim_rolls <- sample(1:6, how_many_rolls, replace = TRUE)
+list(sim_rolls)
+
+#Vectorized 
+how_many_sims <- 50
+sim_rolls_vec <- sample(1:6, how_many_rolls*how_many_sims, replace = TRUE)
+list (sim_rolls_vec)
+
+#How many times 6 comes up 
+if_come_up_6_vec <- as.numeric(sim_rolls_vec == 6)
+mean(if_come_up_6_vec)
+
+#In my experiment the number 6 came up 16.99 percent of the time. That means that it didn't surpass my established threshold of 25%. Therefore, it would be deeemed to be.
